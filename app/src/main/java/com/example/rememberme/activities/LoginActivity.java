@@ -1,7 +1,6 @@
 package com.example.rememberme.activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +16,7 @@ import static com.example.rememberme.UtilityClasses.Tags.USER_NAME;
 import static com.example.rememberme.UtilityClasses.Tags.USER_PASSWORD;
 import static com.example.rememberme.UtilityClasses.Tags.USER_saveLogin;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText edittextname, edittextpassword;
     CheckBox checkBox;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign);
         initViews();
     }
 
@@ -44,17 +43,17 @@ public class MainActivity extends AppCompatActivity {
                     login();
             }
         });
-        saveLogin = DBManager.getBoolPrefs(MainActivity.this, USER_saveLogin);
+        saveLogin = DBManager.getBoolPrefs(LoginActivity.this, USER_saveLogin);
         if (saveLogin) {
-            edittextname.setText(DBManager.getStringPrefs(MainActivity.this, USER_NAME));
-            edittextpassword.setText(DBManager.getStringPrefs(MainActivity.this, USER_PASSWORD));
+            edittextname.setText(DBManager.getStringPrefs(LoginActivity.this, USER_NAME));
+            edittextpassword.setText(DBManager.getStringPrefs(LoginActivity.this, USER_PASSWORD));
             checkBox.setChecked(true);
         }
     }
 
     public void doSomethingElse() {
-        Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-//        startActivity(new Intent(MainActivity.this.this, MainActivity.class));
+        Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
+//        startActivity(new Intent(LoginActivity.this.this, LoginActivity.class));
 //        LoginActivity.this.finish();
     }
 
@@ -64,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
         String password = edittextpassword.getText().toString();
         if (name.equals("naeem") && password.equals("123")) {
             if (checkBox.isChecked()) {
-                DBManager.setStringPrefs(MainActivity.this, USER_NAME, name);
-                DBManager.setStringPrefs(MainActivity.this, USER_PASSWORD, password);
-                DBManager.setBoolPrefs(MainActivity.this, USER_saveLogin, true);
+                DBManager.setStringPrefs(LoginActivity.this, USER_NAME, name);
+                DBManager.setStringPrefs(LoginActivity.this, USER_PASSWORD, password);
+                DBManager.setBoolPrefs(LoginActivity.this, USER_saveLogin, true);
             } else {
-                DBManager.removeAllPreferencesData(MainActivity.this);
-                Toast.makeText(MainActivity.this, "this", Toast.LENGTH_LONG).show();
+                DBManager.removeAllPreferencesData(LoginActivity.this);
+                Toast.makeText(LoginActivity.this, "this", Toast.LENGTH_LONG).show();
             }
             doSomethingElse();
         }
