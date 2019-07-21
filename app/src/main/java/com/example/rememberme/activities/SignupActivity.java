@@ -35,7 +35,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(SignupActivity.this);
         progressDialog.setMessage("Its loading....");
         progressDialog.setTitle("ProgressDialog bar example");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         //Get Firebase auth instance
         firebaseAuth = FirebaseAuth.getInstance();
 
