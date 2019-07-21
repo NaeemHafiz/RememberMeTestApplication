@@ -1,17 +1,12 @@
 package com.example.rememberme.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rememberme.R;
@@ -19,6 +14,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SignupActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
@@ -55,6 +56,14 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean validateEmailAddress(String emailAddress) {
+        String expression = "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = emailAddress;
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        return matcher.matches();
     }
 
     private void registerUser() {
@@ -100,6 +109,11 @@ public class SignupActivity extends AppCompatActivity {
         if (password.length() < 6) {
             editTextPassword.setError("Password should be at lease 6 characters");
             editTextPassword.requestFocus();
+            return false;
+        }
+        if (!validateEmailAddress(email)) {
+            editTextEmail.setError("Please Enter Correct Email Pattern");
+            editTextEmail.requestFocus();
             return false;
         }
         return true;
